@@ -75,9 +75,9 @@ Write only in this tweet like format (Example):
 ```
 Return only this JSON format.
 """,
-            model=llm.ChatLLMModel.GPT4.value,
+            model=llm.ChatLLMModel.GPT3_5.value,
         )
-        num_tweets = random.choice(["two", "three"])
+        num_tweets = random.choice(["two", "three", "four", "five"])
         author = " ".join([random.choice(adjectives), random.choice(characters)])
         if not topic or topic == "random":
             topic = random.choice(topics)
