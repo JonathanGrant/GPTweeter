@@ -1,0 +1,60 @@
+Linear Algebra
+Geology
+Astrophysics
+Quantum Mechanics
+Environmental Science
+Computer Science
+Artificial Intelligence
+Cognitive Psychology
+Economics
+Political Science
+Philosophy
+Biotechnology
+Aerospace Engineering
+Cryptography
+Sociology
+Microbiology
+Neuroscience
+Statistical Mechanics
+Organic Chemistry
+Material Science
+Ethics
+Robotics
+Urban Planning
+Renewable Energy
+History of Science
+Linguistics
+Marine Biology
+Forensic Science
+Cultural Studies
+Comparative Literature
+Meteorology
+Agricultural Science
+Public Health
+Educational Theory
+Game Theory
+Anthropology
+Nanotechnology
+Particle Physics
+Classical Mechanics
+Electromagnetism
+Thermodynamics
+Fluid Dynamics
+Information Theory
+Human Geography
+International Relations
+Music Theory
+Archeology
+Evolutionary Biology
+Developmental Psychology
+Human-Computer Interaction
+Data Science
+Graph Theory
+Topology
+Number Theory
+Set Theory
+Logic
+Combinatorics
+Real Analysis
+Differential Equations
+Complex Analysis

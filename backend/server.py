@@ -18,6 +18,7 @@ logger.info(f'Starting with {args=}')
 
 adjectives = open('adjectives.txt').read().split('\n')
 characters = open('characters.txt').read().split('\n')
+topics = open('topics.txt').read().split('\n')
 
 
 # Create the Flask application
@@ -83,7 +84,9 @@ Return only this JSON format.
         )
         num_tweets = random.choice(["two", "three", "four", "five"])
         author = " ".join([random.choice(adjectives), random.choice(characters)])
-        for retry in range(3):
+        if not topic or topic == "random":
+            topic = random.choice(topics)
+        for _retry in range(3):
             try:
                 resp = chat.message(f"Give me {num_tweets} informative tweets about {topic} in the style of {author}. Make each tweet by a different user.")
                 if resp.startswith('```'):
