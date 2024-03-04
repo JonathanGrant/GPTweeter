@@ -88,7 +88,7 @@ Return only this JSON format.
                 resp = chat.message(f"Give me {num_tweets} informative tweets about {topic} in the style of {author}. Make each tweet by a different user.")
                 if resp.startswith('```'):
                     resp = resp[3:-3]
-                return jsonify(json.loads(resp))
+                return jsonify(json.loads(resp, strict=False))
             except Exception as e:
                 logger.exception(e)
         return jsonify({
