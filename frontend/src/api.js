@@ -4,8 +4,7 @@ if (process.env.NODE_ENV === 'development') {
   BASE_URL = 'http://localhost:5000/api';
 }  else {
   // BASE_URL = '/api';
-  // BASE_URL = 'https://chatwithmenu.com/api'
-  BASE_URL = 'http://localhost:5000/api';
+  BASE_URL = 'https://weathergpt.us/api';
 }
 
 const getTweets = async (topic) => {
