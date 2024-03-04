@@ -1,7 +1,6 @@
 import argparse
 import os
-import re
-import yaml
+import random
 import json
 from flask import Flask, render_template, request, send_from_directory, Response, jsonify
 from flask_cors import CORS
@@ -16,6 +15,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--env', default='dev')
 args = parser.parse_args()
 logger.info(f'Starting with {args=}')
+
+adjectives = open('adjectives.txt').read().split('\n')
+characters = open('characters.txt').read().split('\n')
+
 
 # Create the Flask application
 app = Flask(__name__, static_folder='/root/GPTweeter/frontend/build')
@@ -43,7 +46,6 @@ api_namespace = Namespace('api', description='API operations', path='/api')
 @api_namespace.route('/tweets/<topic>')
 class TweetResource(Resource):
     def get(self, topic):
-        # TODO: Get topic from random file stuff
         chat = llm.ChatLLM(
             system="""You are DankTweeterGPT.
 Write only in this tweet like format (Example):
@@ -79,7 +81,9 @@ Return only this JSON format.
 """,
             model=llm.ChatLLMModel.GPT3_5.value,
         )
-        resp = chat.message(f"Give me five informative tweets about {topic}.")
+        num_tweets = random.choice(["two", "three", "four", "five"])
+        author = " ".join([random.choice(adjectives), random.choice(characters)])
+        resp = chat.message(f"Give me {num_tweets} informative tweets about {topic} in the style of {author}.")
         if resp.startswith('```'):
             resp = resp[3:-3]
         return jsonify(json.loads(resp))
