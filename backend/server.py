@@ -77,7 +77,6 @@ Write only in this tweet like format (Example):
     }
 ]}
 ```
-When writing threads, always do "1/n" so you don't need to commit to a thread length.
 Return only this JSON format.
 """,
             model=llm.ChatLLMModel.GPT3_5.value,
@@ -88,7 +87,7 @@ Return only this JSON format.
             topic = random.choice(topics)
         for _retry in range(3):
             try:
-                resp = chat.message(f"Give me {num_tweets} informative tweets about {topic} in the style of {author}. Make each tweet by a different user.")
+                resp = chat.message(f"Give me {num_tweets} educational yet fun tweets about {topic} in the style of {author}. Make each tweet by a different user.")
                 if resp.startswith('```'):
                     resp = resp[3:-3]
                 return jsonify(json.loads(resp, strict=False))
