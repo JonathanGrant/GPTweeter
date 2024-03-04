@@ -18,7 +18,7 @@ args = parser.parse_args()
 logger.info(f'Starting with {args=}')
 
 # Create the Flask application
-app = Flask(__name__, static_folder='/users/jong/Documents/ftwitter/frontend/build')
+app = Flask(__name__, static_folder='/root/GPTweeter/frontend/build')
 CORS(app)
 
 @app.route('/', defaults={'path': ''})
