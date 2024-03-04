@@ -52,25 +52,21 @@ class TweetResource(Resource):
 Write only in this tweet like format (Example):
 ```{"tweets": [
     {
-        "user_id": "@robinhanson",
         "user_name": "Robin Hanson",
         "datetime": "1h ago",
         "text": "**Demanding Job Joke:**\n\"If you don't come in to work on Saturday, don't bother to come in on Sunday.\""
     },
     {
-        "user_id": "@MorningBrew",
         "user_name": "Morning Brew",
         "datetime": "19h ago",
         "text": "You merely adopted the McDonald's. I was born in it, molded by it.\n🍔 MCDO"
     },
     {
-        "user_id": "@Noahpinion",
         "user_name": "Noah Smith",
         "datetime": "12 minutes ago",
         "text": "Every time I hang out with a bunch of friends, I need to take a break from Twitter. It's so brutal coming right back to this place and watching a bunch of strangers trying to be an asshole to other strangers over political stuff that they probably don't even really care about."
     },
     {
-        "user_id": "@TeRDOS",
         "user_name": "Terminally Online Engineer",
         "datetime": "Now",
         "text": "Me breaking prod:\n*No further details provided.*"
@@ -79,15 +75,15 @@ Write only in this tweet like format (Example):
 ```
 Return only this JSON format.
 """,
-            model=llm.ChatLLMModel.GPT3_5.value,
+            model=llm.ChatLLMModel.GPT4.value,
         )
-        num_tweets = random.choice(["two", "three", "four", "five"])
+        num_tweets = random.choice(["two", "three"])
         author = " ".join([random.choice(adjectives), random.choice(characters)])
         if not topic or topic == "random":
             topic = random.choice(topics)
         for _retry in range(3):
             try:
-                resp = chat.message(f"Give me {num_tweets} educational yet fun tweets about {topic} in the style of {author}. Make each tweet by a different user.")
+                resp = chat.message(f"Give me {num_tweets} educational/insightful yet fun tweets about {topic} in the style of {author}. Make each tweet by a different user.")
                 if resp.startswith('```'):
                     resp = resp[3:-3]
                 return jsonify(json.loads(resp, strict=False))
@@ -96,31 +92,26 @@ Return only this JSON format.
         return jsonify({
             "tweets": [
                 {
-                    "user_id": "@DuckEvolve",
                     "user_name": "Dr. Quack Evolutionary Tales",
                     "datetime": "Just now",
                     "text": "Duck Bill Evolution 101: Ducks evolved bills as a versatile tool for feeding. Whether it's sifting through water for plants, catching insects, or preying on small fish, their bills are perfectly adapted. Nature's Swiss Army knife for our feathery friends! 🦆💡 #Evolution #DuckFacts"
                 },
                 {
-                    "user_id": "@FeatheredFacts",
                     "user_name": "BirdWatcher Supreme",
                     "datetime": "Just now",
                     "text": "Fascinating how evolution shapes creatures for survival. Ducks' bills are a prime example of adaptability and efficiency in the animal kingdom. 🌿🦆 #NatureIsAmazing"
                 },
                 {
-                    "user_id": "@PondThoughts",
                     "user_name": "Pond Philosopher",
                     "datetime": "Just now",
                     "text": "Ever noticed how ducks can filter water and mud right through their bills to find food? It's like having a built-in spaghetti strainer. Evolution is wild! 🍝🦆"
                 },
                 {
-                    "user_id": "@WildlifeWonders",
                     "user_name": "Nature's Marvels",
                     "datetime": "Just now",
                     "text": "The variety in bill shapes even among ducks is a testament to evolutionary adaptation. From broad bills to narrow ones, each is tailored to their specific diet and habitat. #Biodiversity"
                 },
                 {
-                    "user_id": "@DuckLore",
                     "user_name": "The Quacken",
                     "datetime": "Just now",
                     "text": "Ducks also use their bills for grooming and to regulate their temperature, showing just how important this tool is beyond just feeding. It's their multi-purpose gadget! 🌡️🛁"

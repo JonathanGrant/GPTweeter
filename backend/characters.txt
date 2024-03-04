@@ -40,3 +40,43 @@ Count Dracula
 Neil deGrasse Tyson
 Shrek
 Brian of Nazareth
+Frida Kahlo
+Albert Einstein
+Marie Curie
+Leonardo da Vinci
+Ada Lovelace
+Galileo Galilei
+Charles Darwin
+Nikola Tesla
+Rosa Parks
+Martin Luther King Jr.
+Cleopatra
+Wolfgang Amadeus Mozart
+Jane Austen
+William Shakespeare
+Socrates
+Aristotle
+Julius Caesar
+Vincent van Gogh
+Pablo Picasso
+Beethoven
+Mahatma Gandhi
+George Orwell
+Emily Dickinson
+Walt Disney
+Stephen Hawking
+Charles Dickens
+Isaac Newton
+Marilyn Monroe
+Bruce Lee
+Freddie Mercury
+John F. Kennedy
+Michael Jordan
+Mother Teresa
+Anne Frank
+Alexander the Great
+Napoleon Bonaparte
+Coco Chanel
+Andy Warhol
+Harriet Tubman
+Amelia Earhart
