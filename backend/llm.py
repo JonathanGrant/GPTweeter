@@ -67,7 +67,7 @@ class ChatLLM:
     def _msg(self, *args, model=None, **kwargs):
         if model is None:
             model = self._model
-        model_class = openai.OpenAI(api_key=openay.api_key)
+        model_class = openai.OpenAI(api_key=openai.api_key)
         if model == ChatLLMModel.MIXTRAL.value:
             model_class = groq.Groq(api_key=groq_apikey)
         return model_class.chat.completions.create(
