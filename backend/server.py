@@ -117,7 +117,6 @@ Return only this JSON format.
                     f"Give me {num_tweets} educational/insightful yet fun tweets about {topic} in the style of {author}. Make each tweet by a different user.",
                     response_format={
                         "type": "json_object", 
-                        "schema": eg_tweets,
                     },
                 )
                 if resp.startswith('```'):
