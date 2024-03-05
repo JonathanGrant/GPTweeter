@@ -20,6 +20,36 @@ adjectives = open('adjectives.txt').read().split('\n')
 characters = open('characters.txt').read().split('\n')
 topics = open('topics.txt').read().split('\n')
 
+eg_tweets = {
+    "tweets": [
+        {
+            "user_name": "Dr. Quack Evolutionary Tales",
+            "datetime": "Just now",
+            "text": "Duck Bill Evolution 101: Ducks evolved bills as a versatile tool for feeding. Whether it's sifting through water for plants, catching insects, or preying on small fish, their bills are perfectly adapted. Nature's Swiss Army knife for our feathery friends! 🦆💡 #Evolution #DuckFacts"
+        },
+        {
+            "user_name": "BirdWatcher Supreme",
+            "datetime": "Just now",
+            "text": "Fascinating how evolution shapes creatures for survival. Ducks' bills are a prime example of adaptability and efficiency in the animal kingdom. 🌿🦆 #NatureIsAmazing"
+        },
+        {
+            "user_name": "Pond Philosopher",
+            "datetime": "Just now",
+            "text": "Ever noticed how ducks can filter water and mud right through their bills to find food? It's like having a built-in spaghetti strainer. Evolution is wild! 🍝🦆"
+        },
+        {
+            "user_name": "Nature's Marvels",
+            "datetime": "Just now",
+            "text": "The variety in bill shapes even among ducks is a testament to evolutionary adaptation. From broad bills to narrow ones, each is tailored to their specific diet and habitat. #Biodiversity"
+        },
+        {
+            "user_name": "The Quacken",
+            "datetime": "Just now",
+            "text": "Ducks also use their bills for grooming and to regulate their temperature, showing just how important this tool is beyond just feeding. It's their multi-purpose gadget! 🌡️🛁"
+        },
+    ]
+}
+
 
 # Create the Flask application
 app = Flask(__name__, static_folder='/root/GPTweeter/frontend/build')
@@ -83,7 +113,13 @@ Return only this JSON format.
             topic = random.choice(topics)
         for _retry in range(3):
             try:
-                resp = chat.message(f"Give me {num_tweets} educational/insightful yet fun tweets about {topic} in the style of {author}. Make each tweet by a different user.")
+                resp = chat.message(
+                    f"Give me {num_tweets} educational/insightful yet fun tweets about {topic} in the style of {author}. Make each tweet by a different user.",
+                    response_format={
+                        "type": "json_object", 
+                        "schema": eg_tweets,
+                    },
+                )
                 if resp.startswith('```'):
                     resp = resp[3:-3]
                 while resp and not resp[0] == '{': resp = resp[1:]
@@ -91,35 +127,7 @@ Return only this JSON format.
                 return jsonify(json.loads(resp, strict=False))
             except Exception as e:
                 logger.exception(e)
-        return jsonify({
-            "tweets": [
-                {
-                    "user_name": "Dr. Quack Evolutionary Tales",
-                    "datetime": "Just now",
-                    "text": "Duck Bill Evolution 101: Ducks evolved bills as a versatile tool for feeding. Whether it's sifting through water for plants, catching insects, or preying on small fish, their bills are perfectly adapted. Nature's Swiss Army knife for our feathery friends! 🦆💡 #Evolution #DuckFacts"
-                },
-                {
-                    "user_name": "BirdWatcher Supreme",
-                    "datetime": "Just now",
-                    "text": "Fascinating how evolution shapes creatures for survival. Ducks' bills are a prime example of adaptability and efficiency in the animal kingdom. 🌿🦆 #NatureIsAmazing"
-                },
-                {
-                    "user_name": "Pond Philosopher",
-                    "datetime": "Just now",
-                    "text": "Ever noticed how ducks can filter water and mud right through their bills to find food? It's like having a built-in spaghetti strainer. Evolution is wild! 🍝🦆"
-                },
-                {
-                    "user_name": "Nature's Marvels",
-                    "datetime": "Just now",
-                    "text": "The variety in bill shapes even among ducks is a testament to evolutionary adaptation. From broad bills to narrow ones, each is tailored to their specific diet and habitat. #Biodiversity"
-                },
-                {
-                    "user_name": "The Quacken",
-                    "datetime": "Just now",
-                    "text": "Ducks also use their bills for grooming and to regulate their temperature, showing just how important this tool is beyond just feeding. It's their multi-purpose gadget! 🌡️🛁"
-                },
-            ]
-        })
+        return jsonify(eg_tweets)
 
 api.add_namespace(api_namespace)
 
