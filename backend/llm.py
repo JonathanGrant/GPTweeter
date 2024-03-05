@@ -12,7 +12,7 @@ import jonlog
 
 logger = jonlog.getLogger()
 openai.api_key = os.environ.get('OPENAI_KEY') or open(os.path.expanduser('~/.openai_key')).read().strip()
-groq_apikey = os.environ.get('GROQ_KEY') or open(os.path.expanduser('~/.groq_key')).read().strip()
+groq_apikey = os.environ.get('GROQ_KEY') or open(os.path.expanduser('~/.groq_apikey')).read().strip()
 
 
 class ChatLLMModel(enum.Enum):
