@@ -2,6 +2,7 @@
 import os
 import enum
 import uuid
+import groq
 import openai
 import tiktoken
 import retrying
@@ -11,15 +12,18 @@ import jonlog
 
 logger = jonlog.getLogger()
 openai.api_key = os.environ.get('OPENAI_KEY') or open(os.path.expanduser('~/.openai_key')).read().strip()
+groq_apikey = os.environ.get('GROQ_KEY') or open(os.path.expanduser('~/.groq_key')).read().strip()
 
 
 class ChatLLMModel(enum.Enum):
     GPT3_5 = "gpt-3.5-turbo"
     GPT4  = "gpt-4-turbo-preview"
+    MIXTRAL = "mixtral-8x7b-32768"
 
 CHAT_LLM_MAX_LENGTHS = {
-    ChatLLMModel.GPT3_5.value: 12_000,  # If fail, return to 4096
-    ChatLLMModel.GPT4.value  : 12_000,  # 128k but lets limit for testing
+    ChatLLMModel.GPT3_5.value   : 12_000,  # If fail, return to 4096
+    ChatLLMModel.GPT4.value     : 12_000,  # 128k but lets limit for testing
+    ChatLLMModel.MIXTRAL.value  : 12_000,  # 128k but lets limit for testing
 }
 
 class ChatLLM:
@@ -63,7 +67,10 @@ class ChatLLM:
     def _msg(self, *args, model=None, **kwargs):
         if model is None:
             model = self._model
-        return openai.OpenAI(api_key=openai.api_key).chat.completions.create(
+        model_class = openai.OpenAI(api_key=openay.api_key)
+        if model == ChatLLMModel.MIXTRAL.value:
+            model_class = groq.Groq(api_key=groq_apikey)
+        return model_class.chat.completions.create(
             *args, model=model, messages=self._history, **kwargs
         )
     
@@ -76,9 +83,9 @@ class ChatLLM:
             return None
 
         req_id = str(uuid.uuid4())[:16]
-        logger.info(f'requesting openai.chat {req_id=} {self._model=}...')
+        logger.info(f'requesting LLM.chat {req_id=} {self._model=}...')
         resp = self._msg(**kwargs)
-        logger.info(f'received openai.chat {req_id=} {self._model=}...')
+        logger.info(f'received LLM.chat {req_id=} {self._model=}...')
         text = resp.choices[0].message.content
         self._history.append({"role": "assistant", "content": text})
         return text
